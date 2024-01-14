@@ -8,7 +8,7 @@ require('./connection')
 const server = http.createServer(app);
 const {Server} = require('socket.io');
 const io = new Server(server, {
-  cors: `http://${this.props.location.pathname}:${this.props.location.port}`,
+  cors: `http://${server.address}:${process.env.PARTNAME}`,
   methods: ['GET', 'POST', 'PATCH', "DELETE"]
 })
 
@@ -44,7 +44,7 @@ app.post('/create-payment', async(req, res)=> {
    }
 })
 
-const port = this.props.location.port || 8080;
+const port = process.env.PORTNAME || 8080;
 server.listen(port, ()=> {
   console.log('server running at port', port)
 })
